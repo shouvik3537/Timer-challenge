@@ -1,22 +1,15 @@
-import {useState} from "react";
+import {useState, useRef} from "react";
 export default function Player() {
-  const [userName, setUserName] = useState("champ");
-  const [save, setSave] = useState(false);
+  const playerName = useRef();
+  const [userName, setUserName] = useState(null);;
   function handleSave(){
-    setSave(!save);
-  }
-  function handleUserName (event){
-     setUserName(event.target.value);
-  }
-  let player = <h2>Welcome champ</h2>
-  if(save){
-     player = <h2>Welcome {userName}</h2>
+      setUserName(playerName.current.value);
   }
   return (
     <section id="player">
-     {player}
+     <h2>welcome {userName ?? 'unknown Entity'} </h2>
       <p>
-        <input type="text"  onChange={handleUserName} />
+        <input ref={playerName} type="text" />
         <button onClick={handleSave} >Set Name</button>
       </p>
     </section>
